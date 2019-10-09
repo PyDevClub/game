@@ -20,6 +20,17 @@ class Tile(object):
 			all_images[self.name] = pygame.image.load(self.name)
 		self.surface = all_images[self.name]
 
+
+class Spawnable(Tile):
+	def __init__(self, image_name, x, y):
+		super(Spawnable, self).__init__(image_name, x, y)
+# 		self.heal = False
+# 		full properties of an item here
+
+class Car(Spawnable):
+	def __init__(self, x, y):
+		super(Spawnable, self).__init__("item.png", x, y)
+
 class Dungeon(object):
 	"""docstring for Dungeon"""
 	def __init__(self, width, height):
@@ -39,7 +50,7 @@ class Dungeon(object):
 		for y in range(self.height):
 			self.grid += [[]]
 			for x in range(self.width):
-				self.grid[-1] += [Tile("bricks.png", x, y)]
+				self.grid[-1] += [Car(x, y)]
 
 		# step two: randomly pick some spots in the dungeon (randomly pick a random number of them, should be not near the edges)
 		num_rooms = random.randrange(10,15)
@@ -114,7 +125,7 @@ class Player(Tile):
 		super(Player, self).__init__("player.png", x, y)
 
 
-		
+
 
 
 pygame.init()
@@ -127,7 +138,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    
+
     my_dungeon.display(screen)
-    
+
     pygame.display.flip()

@@ -24,8 +24,8 @@ class Tile(object):
 class Spawnable(Tile):
     def __init__(self, image_name, x, y):
         super(Spawnable, self).__init__(image_name, x, y)
-# 		self.heal = False
-# 		full properties of an item here
+#       self.heal = False
+#       full properties of an item here
 
 class Car(Spawnable):
     def __init__(self, x, y):
@@ -114,17 +114,19 @@ class Dungeon(object):
                     self.grid[y][x] = player
                     player.x = x
                     player.y = y
-                    return True
                     self.player = player
+                    print(self.player)
+                    return True
         return False
 
     def move_player(self):
+        print(self.player)
         current_y = self.player.y
         current_x = self.player.x
         if self.grid[current_y][current_x+1].name == "empty.png":
             self.player.x += 1
             self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
-            self.grid[current_y][current_x+1] = player
+            self.grid[current_y][current_x+1] = self.player
 
 
 class Player(Tile):

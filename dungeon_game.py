@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import sys
 
 all_images = {}
 TILE_SIZE = 18
@@ -31,6 +32,7 @@ class Dungeon(object):
 		self.generate()
 
 		self.players = []
+		self.monsters = []
 		
 
 	def generate(self):
@@ -105,6 +107,16 @@ class Dungeon(object):
 					player.y = y
 					return True
 		return False
+	
+	def add_monster(self, monster):
+		for y in range(self.height):
+			for x in range(self.width):
+				if self.grid[y][x].name == "empty.png":
+					self.grid[y][x] = monster
+					monster.x = x
+					monster.y = y
+					return True
+		return False
 		
 
 
@@ -114,7 +126,16 @@ class Player(Tile):
 		super(Player, self).__init__("player.png", x, y)
 
 
-		
+class Monster(Tile):
+	"""docstring for Monster"""
+	def __init__(self, x, y):
+	 	super(Monster, self).__init__("monster.png", x, y)
+
+	def minDistance(self, dist, sptSet):
+	
+	def dijkstras():
+
+	
 
 
 pygame.init()
@@ -122,6 +143,7 @@ screen = pygame.display.set_mode((DUNGEON_SIZE*TILE_SIZE, DUNGEON_SIZE*TILE_SIZE
 done = False
 my_dungeon = Dungeon(DUNGEON_SIZE, DUNGEON_SIZE)
 my_dungeon.add_player(Player(1,1))
+my_dungeon.add_monster(Monster(0,200))
 
 while not done:
     for event in pygame.event.get():

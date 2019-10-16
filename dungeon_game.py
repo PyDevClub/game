@@ -41,7 +41,7 @@ class Dungeon(object):
 		self.grid = []
 		self.generate()
 
-		self.players = []
+		self.player = None
 		
 
 	def generate(self):
@@ -115,8 +115,16 @@ class Dungeon(object):
 					player.x = x
 					player.y = y
 					return True
+					self.player = player
 		return False
-		
+
+	def move_player(self):
+		current_y = self.player.y
+		current_x = self.player.x
+		if self.grid[current_y][current_x+1].name == "empty.png":
+			self.player.x += 1
+			self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+			self.grid[current_y][current_x+1] = player
 
 
 class Player(Tile):

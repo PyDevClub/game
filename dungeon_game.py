@@ -132,9 +132,17 @@ class Monster(Tile):
 	 	super(Monster, self).__init__("monster.png", x, y)
 
 	def minDistance(self, dist, sptSet):
-	
-	def dijkstras():
+		min = sys.maxint
+		# Search not nearest vertex not in the  
+        # shortest path tree 
+		for v in range(self.V):
+			if dist[v] < min and sptSet[v] == False:
+				min = dist[v]
+				min_index = v
+		return min_index 
 
+	def dijkstras():
+		dist = [sys.maxint] * self.V
 	
 
 

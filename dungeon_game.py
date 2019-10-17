@@ -119,14 +119,18 @@ class Dungeon(object):
                     return True
         return False
 
-    def move_player(self):
+    def move_player(self,direction):
         print(self.player)
         current_y = self.player.y
         current_x = self.player.x
-        if self.grid[current_y][current_x+1].name == "empty.png":
+        if direction == pygame.K_RIGHT and self.grid[current_y][current_x+1].name == "empty.png":
             self.player.x += 1
             self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
             self.grid[current_y][current_x+1] = self.player
+        if direction == pygame.K_LEFT and self.grid[current_y][current_x-1].name =="empy.png":
+            self.player.x -= 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y][current_x - 1] = self.player
 
 
 class Player(Tile):
@@ -149,7 +153,10 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         if event.type ==pygame.KEYDOWN:
-            my_dungeon.move_player()
+            my_dungeon.move_player(event.key)
+            
+
+
 
     my_dungeon.display(screen)
 

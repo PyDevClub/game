@@ -210,6 +210,11 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type ==pygame.KEYDOWN:
+            my_dungeon.move_player(event.key)
+            
+
+
 
     my_dungeon.display(screen)
 

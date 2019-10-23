@@ -141,10 +141,20 @@ class Monster(Tile):
 				min_index = v
 		return min_index 
 
-	def dijkstras():
+	def dijkstras(self, src):
 		dist = [sys.maxint] * self.V
-	
+		disr[src] = 0;
+		sptSet = [False] * self.V
 
+		for cout in range(self.V):
+			u = self.minDistance(dist, sptSet)
+			sptSet[u] = True
+
+			for v in range(self.V):
+				if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
+					dist[v] = dist[u] + self.graph[u][v]
+	
+	#def chasePlayer(self):
 
 pygame.init()
 screen = pygame.display.set_mode((DUNGEON_SIZE*TILE_SIZE, DUNGEON_SIZE*TILE_SIZE))

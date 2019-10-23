@@ -13,23 +13,70 @@ class Tile(object):
 		self.name = image_name
 		self.x = x
 		self.y = y
+		self.Spawnable #I want to make it possible to add a Spawnable iteam randomly, sometimes
 
 		# initialize image
 		self.surface = None
 		if self.name not in all_images.keys():
 			all_images[self.name] = pygame.image.load(self.name)
 		self.surface = all_images[self.name]
+		
+	def step_on(player):
+		self.Spawnable.activate(player)
 
 
-class Spawnable(Tile):
-	def __init__(self, image_name, x, y):
-		super(Spawnable, self).__init__(image_name, x, y)
+
+# My for this is to have a spawnable class that works as an interface that all of 
+# things on the board inheart from and then all of them can activate to do something
+# once a condition is activate probably the player stands on them
+
+class Spawnable(object):
+	def __init__():
+		
+		
+	# methiod that is called if a player steps on the tile
+	def activate(player):
+		print('This should never happen you have declared a Spawnable when you should only ever declare it\'s children')
+		
+	# methiod to supply the image for the tile
+	def image():
+		print('this is a methiod to return the image of the object for the tile to replace as it\'s owen \n this should never be called but be overidden by a child' )
+	
+#		super(Spawnable, self).__init__(image_name, x, y)
 # 		self.heal = False
 # 		full properties of an item here
 
+
+
+
 class Car(Spawnable):
 	def __init__(self, x, y):
-		super(Spawnable, self).__init__("item.png", x, y)
+		
+	def activate(player):
+		player.getHit(20)
+		
+	def image():
+		return "item.png"
+	
+
+class Chest(Spawnable):
+	def __init__(self, x, y):
+		super(Spawnable, self).__init__("", x, y)
+		print('the chest has no image ksbjfabkjakfkjafbjk')
+		
+	def activate(player):
+		player.loot(random.randint(0,10))
+
+		def image():
+			print('Chest doesn\'t have a image LSDBlbhvdslsg')
+			return ""
+		
+		
+
+
+		
+		
+		
 
 class Dungeon(object):
 	"""docstring for Dungeon"""
@@ -50,7 +97,7 @@ class Dungeon(object):
 		for y in range(self.height):
 			self.grid += [[]]
 			for x in range(self.width):
-				self.grid[-1] += [Car(x, y)]
+				self.grid[-1] += [Tile(x, y)]
 
 		# step two: randomly pick some spots in the dungeon (randomly pick a random number of them, should be not near the edges)
 		num_rooms = random.randrange(10,15)
@@ -123,6 +170,31 @@ class Player(Tile):
 	"""docstring for Player"""
 	def __init__(self, x, y):
 		super(Player, self).__init__("player.png", x, y)
+		self.gear = []
+		self.health = 100
+		self.power = 1
+		self.armor = 0
+		self.purse = 0
+		
+		
+		
+	#The following methods are created for interacting with spawnable ojects
+	def equip(spawnable):
+		self.gear += spawnable
+		
+	def gitHit(hit):
+		self.health -= hit
+		
+	def powerUp(boost):
+		self.power += boost
+		
+	def heal(amount):
+		self.health += amount
+		
+	def loot(coin):
+		self.purse += coin
+	
+	
 
 
 

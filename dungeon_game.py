@@ -123,12 +123,12 @@ class Dungeon(object):
         
         current_y = self.player.y
         current_x = self.player.x
-        print(direction, direction==274,self.grid[current_y+1][current_x].name)
-        # if direction == pygame.K_RIGHT and self.grid[current_y][current_x+1].name == "empty.png":
-        #     self.player.x += 1
-        #     self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
-        #     self.grid[current_y][current_x+1] = self.player
-        if direction == pygame.K_LEFT and self.grid[current_y][current_x-1].name =="empty.png":
+        print(direction)
+        if direction == 275 and self.grid[current_y][current_x+1].name =="empty.png":
+            self.player.x += 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y][current_x + 1] = self.player
+        if direction == 276 and self.grid[current_y][current_x-1].name =="empty.png":
             self.player.x -= 1
             self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
             self.grid[current_y][current_x - 1] = self.player
@@ -136,6 +136,10 @@ class Dungeon(object):
             self.player.y += 1
             self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
             self.grid[current_y + 1][current_x] = self.player
+        if direction == 273 and self.grid[current_y-1][current_x].name =="empty.png":
+            self.player.y -= 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y - 1][current_x] = self.player
 
 
 class Player(Tile):

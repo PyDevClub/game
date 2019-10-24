@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import sys
 
 all_images = {}
 TILE_SIZE = 18
@@ -33,6 +34,7 @@ class Dungeon(object):
 		self.generate()
 
 		self.players = []
+		self.monsters = []
 
 
 	def generate(self):
@@ -108,6 +110,16 @@ class Dungeon(object):
 					return True
 		return False
 
+	
+	def add_monster(self, monster):
+		for y in range(self.height):
+			for x in range(self.width):
+				if self.grid[y][x].name == "empty.png":
+					self.grid[y][x] = monster
+					monster.x = x
+					monster.y = y
+					return True
+		return False
 
 
 class Player(Tile):
@@ -117,6 +129,35 @@ class Player(Tile):
 
 
 
+class Monster(Tile):
+	"""docstring for Monster"""
+	def __init__(self, x, y):
+	 	super(Monster, self).__init__("monster.png", x, y)
+
+	def minDistance(self, dist, sptSet):
+		min = sys.maxint
+		# Search not nearest vertex not in the  
+        # shortest path tree 
+		for v in range(self.V):
+			if dist[v] < min and sptSet[v] == False:
+				min = dist[v]
+				min_index = v
+		return min_index 
+
+	def dijkstras(self, src):
+		dist = [sys.maxint] * self.V
+		disr[src] = 0;
+		sptSet = [False] * self.V
+
+		for cout in range(self.V):
+			u = self.minDistance(dist, sptSet)
+			sptSet[u] = True
+
+			for v in range(self.V):
+				if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
+					dist[v] = dist[u] + self.graph[u][v]
+	
+	#def chasePlayer(self):
 
 
 pygame.init()
@@ -125,6 +166,7 @@ done = False
 my_dungeon = Dungeon(DUNGEON_SIZE, DUNGEON_SIZE)
 
 my_dungeon.add_player(Player(1,1))
+my_dungeon.add_monster(Monster(0,200))
 
 while not done:
     for event in pygame.event.get():

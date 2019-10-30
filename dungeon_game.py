@@ -7,6 +7,8 @@ all_images = {}
 TILE_SIZE = 18
 DUNGEON_SIZE = 40
 
+## HI DEVIN <3 <3<3<3
+
 class Tile(object):
 	"""docstring for Tile"""
 	def __init__(self, image_name, x, y):
@@ -33,7 +35,7 @@ class Dungeon(object):
 
 		self.players = []
 		self.monsters = []
-		
+
 
 	def generate(self):
 
@@ -49,7 +51,7 @@ class Dungeon(object):
 		for x in range(num_rooms):
 			room_coords += [[random.randrange(5,self.width-5),random.randrange(5, self.height-5)]]
 
-		
+
 
 
 		# set the first spot to air, then keep calling this method
@@ -63,13 +65,13 @@ class Dungeon(object):
 						closest = (x, y)
 			# step two: tunnel a but in the x direction, then y, then x... or vice versa, until you are there
 			current_spot = closest
-			
+
 			for x in range(current_spot[0], x2, -1 if current_spot[0] > x2 else 1):
 				self.grid[current_spot[1]][x] = Tile("empty.png", x, current_spot[1])
 			for y in range(current_spot[1], y2, -1 if current_spot[1] > y2 else 1):
 				self.grid[y][x2] = Tile("empty.png", x2, y)
 
-			
+
 
 		# step three: tunnel between them
 
@@ -96,7 +98,7 @@ class Dungeon(object):
 		screen.fill((0, 0, 0))
 		for y in range(self.height):
 			for x in range(self.width):
-				screen.blit(self.grid[y][x].surface, (x*TILE_SIZE,y*TILE_SIZE))		
+				screen.blit(self.grid[y][x].surface, (x*TILE_SIZE,y*TILE_SIZE))
 
 	def add_player(self, player):
 		for y in range(self.height):
@@ -107,6 +109,7 @@ class Dungeon(object):
 					player.y = y
 					return True
 		return False
+
 	
 	def add_monster(self, monster):
 		for y in range(self.height):
@@ -117,13 +120,13 @@ class Dungeon(object):
 					monster.y = y
 					return True
 		return False
-		
 
 
 class Player(Tile):
 	"""docstring for Player"""
 	def __init__(self, x, y):
 		super(Player, self).__init__("player.png", x, y)
+
 
 
 class Monster(Tile):
@@ -162,10 +165,12 @@ class Monster(Tile):
 					dist[v] = dist[u] + self.graph[u][v]
 
 
+
 pygame.init()
 screen = pygame.display.set_mode((DUNGEON_SIZE*TILE_SIZE, DUNGEON_SIZE*TILE_SIZE))
 done = False
 my_dungeon = Dungeon(DUNGEON_SIZE, DUNGEON_SIZE)
+
 my_dungeon.add_player(Player(1,1))
 my_dungeon.add_monster(Monster(0,200))
 
@@ -173,7 +178,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    
+
     my_dungeon.display(screen)
-    
+
     pygame.display.flip()

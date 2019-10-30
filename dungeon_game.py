@@ -131,6 +131,13 @@ class Monster(Tile):
 	def __init__(self, x, y):
 	 	super(Monster, self).__init__("monster.png", x, y)
 
+	#def attackPlayer(self):
+
+
+	# def chasePlayer(self):
+	# 	player = self.
+		
+
 	def minDistance(self, dist, sptSet):
 		min = sys.maxint
 		# Search not nearest vertex not in the  
@@ -153,8 +160,7 @@ class Monster(Tile):
 			for v in range(self.V):
 				if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
 					dist[v] = dist[u] + self.graph[u][v]
-	
-	#def chasePlayer(self):
+
 
 pygame.init()
 screen = pygame.display.set_mode((DUNGEON_SIZE*TILE_SIZE, DUNGEON_SIZE*TILE_SIZE))

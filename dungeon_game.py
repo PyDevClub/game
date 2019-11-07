@@ -10,18 +10,29 @@ DUNGEON_SIZE = 40
 ## HI DEVIN <3 <3<3<3
 
 class Tile(object):
-	"""docstring for Tile"""
-	def __init__(self, image_name, x, y):
-		super(Tile, self).__init__()
-		self.name = image_name
-		self.x = x
-		self.y = y
+    """docstring for Tile"""
+    def __init__(self, image_name, x, y):
+        super(Tile, self).__init__()
+        self.name = image_name
+        self.x = x
+        self.y = y
 
-		# initialize image
-		self.surface = None
-		if self.name not in all_images.keys():
-			all_images[self.name] = pygame.image.load(self.name)
-		self.surface = all_images[self.name]
+        # initialize image
+        self.surface = None
+        if self.name not in all_images.keys():
+            all_images[self.name] = pygame.image.load(self.name)
+        self.surface = all_images[self.name]
+
+
+class Spawnable(Tile):
+    def __init__(self, image_name, x, y):
+        super(Spawnable, self).__init__(image_name, x, y)
+#       self.heal = False
+#       full properties of an item here
+
+class Car(Spawnable):
+    def __init__(self, x, y):
+        super(Spawnable, self).__init__("item.png", x, y)
 
 class Dungeon(object):
 	"""docstring for Dungeon"""
@@ -110,7 +121,7 @@ class Dungeon(object):
 					return True
 		return False
 
-	
+
 	def add_monster(self, monster):
 		for y in range(self.height):
 			for x in range(self.width):
@@ -123,9 +134,10 @@ class Dungeon(object):
 
 
 class Player(Tile):
-	"""docstring for Player"""
-	def __init__(self, x, y):
-		super(Player, self).__init__("player.png", x, y)
+    """docstring for Player"""
+    def __init__(self, x, y):
+        super(Player, self).__init__("player.png", x, y)
+
 
 
 
@@ -136,13 +148,13 @@ class Monster(Tile):
 
 	def minDistance(self, dist, sptSet):
 		min = sys.maxint
-		# Search not nearest vertex not in the  
-        # shortest path tree 
+		# Search not nearest vertex not in the
+        # shortest path tree
 		for v in range(self.V):
 			if dist[v] < min and sptSet[v] == False:
 				min = dist[v]
 				min_index = v
-		return min_index 
+		return min_index
 
 	def dijkstras(self, src):
 		dist = [sys.maxint] * self.V
@@ -156,7 +168,7 @@ class Monster(Tile):
 			for v in range(self.V):
 				if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
 					dist[v] = dist[u] + self.graph[u][v]
-	
+
 	#def chasePlayer(self):
 
 

@@ -107,6 +107,7 @@ class Dungeon(object):
                     self.grid[y][x] = player
                     player.x = x
                     player.y = y
+                    self.players += [player]
                     return True
         return False
 
@@ -125,8 +126,10 @@ class Dungeon(object):
     def move_monster(self):
         current_y = self.monsters[0].y
         current_x = self.monsters[0].x
+        print(self.a_star(self.monsters[0]))
         
         direction = random.randrange(273,277)
+        direction = self.a_star(self.monsters[0])
         print(direction)
         if direction == 275 and self.grid[current_y][current_x+1].name =="empty.png":
             self.monsters[0].x += 1
@@ -149,16 +152,33 @@ class Dungeon(object):
         temp_dungeon = [[0 for x in range(len(self.grid[0]))] for y in range(len(self.grid))]
         temp_dungeon[monster.x][monster.y] = -1
         for i in range(0,100):
-            for x in range(len(self.my_dungeon[0])):
-                for y in range(len(self.my_dungeon)):
-                    if temp_dungeon[x][y] != 0:
-                        pass
+            for x in range(len(self.grid[0])):
+                for y in range(len(self.grid)):
+                    if self.players[0].x == x and self.players[0].y == y:
+                        print(temp_dungeon[y][x])
+                    if temp_dungeon[y][x] != 0:
+                        if self.players[0].x == x and self.players[0].y == y:
+                            return temp_dungeon[y][x]
+                    else:
+                        if x >= 1 and (self.grid[y][x-1].name == "empty.png" or self.grid[y][x-1].name == "player"):
+                            temp_dungeon[y][x-1] = 275
+                        if x+1 < len(self.grid[0]) and (self.grid[y][x+1].name == "empty.png" or self.grid[y][x+1].name == "player"):
+                            temp_dungeon[y][x+1] = 276
+                        if y >= 1 and (self.grid[y-1][x].name == "empty.png" or self.grid[y-1][x].name == "player"):
+                            temp_dungeon[y-1][x] = 274
+                        if y+1 < len(self.grid) and (self.grid[y+1][x].name == "empty.png" or self.grid[y+1][x].name == "player"):
+                            temp_dungeon[y+1][x] = 273
+        for i in range(len(temp_dungeon)):
+            print(temp_dungeon[i])
+
+
                         
 
 class Player(Tile):
     """docstring for Player"""
     def __init__(self, x, y):
         super(Player, self).__init__("player.png", x, y)
+        self.name = "player"
 
 
 

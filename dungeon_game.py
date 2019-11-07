@@ -152,6 +152,7 @@ class Dungeon(object):
             for x in range(len(self.my_dungeon[0])):
                 for y in range(len(self.my_dungeon)):
                     if temp_dungeon[x][y] != 0:
+                        pass
                         
 
 class Player(Tile):
@@ -170,8 +171,8 @@ class Monster(Tile):
 
 
     # def chasePlayer(self):
-    # 	player = self.
-	
+    #   player = self.
+    
 
     def minDistance(self, dist, sptSet):
         min = sys.maxint

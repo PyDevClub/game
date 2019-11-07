@@ -148,6 +148,29 @@ class Dungeon(object):
             self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
             self.grid[current_y - 1][current_x] = self.monsters[0]
 
+    def move_player(self, direction):
+
+        current_y = self.players[0].y
+        current_x = self.players[0].x
+        print(direction)
+        if direction == 275 and self.grid[current_y][current_x+1].name =="empty.png":
+            self.players[0].x += 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y][current_x + 1] = self.players[0]
+        if direction == 276 and self.grid[current_y][current_x-1].name =="empty.png":
+            self.players[0].x -= 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y][current_x - 1] = self.players[0]
+        if direction == 274 and self.grid[current_y+1][current_x].name =="empty.png":
+            self.players[0].y += 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y + 1][current_x] = self.players[0]
+        if direction == 273 and self.grid[current_y-1][current_x].name =="empty.png":
+            self.players[0].y -= 1
+            self.grid[current_y][current_x] = Tile("empty.png", current_x, current_y)
+            self.grid[current_y - 1][current_x] = self.players[0]
+    
+
     def a_star(self, monster):
         temp_dungeon = [[0 for x in range(len(self.grid[0]))] for y in range(len(self.grid))]
         temp_dungeon[monster.x][monster.y] = -1
